@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Shield, LayoutDashboard, AlertTriangle, FileText, Activity,
-    Scan, User, LogOut, Menu, X, TrendingUp, TrendingDown,
-    Clock, Server, Zap, Eye, ChevronRight
+    Shield, AlertTriangle, FileText, Activity,Scan, User, TrendingUp, TrendingDown, Server, Zap, ChevronRight
 } from 'lucide-react';
 
 // Services API (to be implemented later)
@@ -92,126 +90,6 @@ const userService = {
     }
 };
 
-// Sidebar Component
-const Sidebar = ({ currentPage, setCurrentPage, sidebarOpen, setSidebarOpen }) => {
-    const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { id: 'alerts', label: 'Alerts', icon: AlertTriangle },
-        { id: 'logs', label: 'Logs', icon: FileText },
-        { id: 'actions', label: 'Actions', icon: Activity },
-        { id: 'scan', label: 'Scan', icon: Scan },
-        { id: 'settings', label: 'Settings', icon: User },
-    ];
-
-    const handleLogout = () => {
-        console.log('Logging out...');
-        // TODO: Implement logout logic
-    };
-
-    return (
-        <>
-            {/* Mobile Overlay */}
-            {sidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-                    onClick={() => setSidebarOpen(false)}
-                ></div>
-            )}
-
-            {/* Sidebar */}
-            <aside className={`
-        fixed top-0 left-0 h-full w-64 bg-slate-900 border-r border-cyan-500/20 z-50
-        transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0
-      `}>
-                <div className="flex flex-col h-full">
-                    {/* Logo */}
-                    <div className="flex items-center justify-between p-6 border-b border-cyan-500/20">
-                        <div className="flex items-center space-x-2">
-                            <Shield className="w-8 h-8 text-[#6abaca]" />
-                            <span className="text-xl font-bold bg-gradient-to-r from-[#6abaca] to-cyan-300 bg-clip-text text-transparent">
-                SafeLink
-              </span>
-                        </div>
-                        <button
-                            onClick={() => setSidebarOpen(false)}
-                            className="lg:hidden text-gray-400 hover:text-white"
-                        >
-                            <X className="w-6 h-6" />
-                        </button>
-                    </div>
-
-                    {/* Menu Items */}
-                    <nav className="flex-1 p-4 space-y-2">
-                        {menuItems.map((item) => (
-                            <button
-                                key={item.id}
-                                onClick={() => {
-                                    setCurrentPage(item.id);
-                                    setSidebarOpen(false);
-                                }}
-                                className={`
-                  w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all
-                  ${currentPage === item.id
-                                    ? 'bg-[#6abaca]/20 text-[#6abaca] border border-[#6abaca]/30'
-                                    : 'text-gray-400 hover:bg-slate-800 hover:text-white'
-                                }
-                `}
-                            >
-                                <item.icon className="w-5 h-5" />
-                                <span className="font-medium">{item.label}</span>
-                            </button>
-                        ))}
-                    </nav>
-
-                    {/* Logout Button */}
-                    <div className="p-4 border-t border-cyan-500/20">
-                        <button
-                            onClick={handleLogout}
-                            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-all"
-                        >
-                            <LogOut className="w-5 h-5" />
-                            <span className="font-medium">Logout</span>
-                        </button>
-                    </div>
-                </div>
-            </aside>
-        </>
-    );
-};
-
-// Header Component
-const Header = ({ sidebarOpen, setSidebarOpen }) => {
-    return (
-        <header className="sticky top-0 z-30 bg-slate-950/90 backdrop-blur-lg border-b border-cyan-500/20">
-            <div className="flex items-center justify-between px-4 lg:px-8 py-4">
-                <button
-                    onClick={() => setSidebarOpen(!sidebarOpen)}
-                    className="lg:hidden text-gray-400 hover:text-white"
-                >
-                    <Menu className="w-6 h-6" />
-                </button>
-
-                <div className="flex-1 lg:flex-none"></div>
-
-                <div className="flex items-center space-x-4">
-                    <div className="hidden sm:flex items-center space-x-2 px-3 py-2 bg-slate-900/50 rounded-lg border border-cyan-500/20">
-                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                        <span className="text-sm text-gray-400">System Online</span>
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-[#6abaca] to-cyan-400 rounded-lg flex items-center justify-center">
-                            <User className="w-5 h-5 text-slate-950" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
-};
-
 // Stat Card Component
 const StatCard = ({ icon: Icon, label, value, trend, trendValue }) => {
     const isPositive = trendValue > 0;
@@ -275,7 +153,7 @@ const RecentAlertCard = ({ alert }) => {
 };
 
 // Dashboard Page Component
-const DashboardPage = () => {
+export default function DashboardPage() {
     const [stats, setStats] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -405,96 +283,52 @@ const DashboardPage = () => {
 };
 
 // Placeholder Pages
-const AlertsPage = () => (
-    <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-            <AlertTriangle className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Alerts Page</h2>
-            <p className="text-gray-400">Coming soon...</p>
-        </div>
-    </div>
-);
-
-const LogsPage = () => (
-    <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-            <FileText className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Logs Page</h2>
-            <p className="text-gray-400">Coming soon...</p>
-        </div>
-    </div>
-);
-
-const ActionsPage = () => (
-    <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-            <Activity className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Actions Page</h2>
-            <p className="text-gray-400">Coming soon...</p>
-        </div>
-    </div>
-);
-
-const ScanPage = () => (
-    <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-            <Scan className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Scan Page</h2>
-            <p className="text-gray-400">Coming soon...</p>
-        </div>
-    </div>
-);
-
-const SettingsPage = () => (
-    <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-            <User className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-white mb-2">Settings Page</h2>
-            <p className="text-gray-400">Coming soon...</p>
-        </div>
-    </div>
-);
-
-// Main Dashboard Component
-export default function Dashboard() {
-    const [currentPage, setCurrentPage] = useState('dashboard');
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const renderPage = () => {
-        switch (currentPage) {
-            case 'dashboard':
-                return <DashboardPage />;
-            case 'alerts':
-                return <AlertsPage />;
-            case 'logs':
-                return <LogsPage />;
-            case 'actions':
-                return <ActionsPage />;
-            case 'scan':
-                return <ScanPage />;
-            case 'settings':
-                return <SettingsPage />;
-            default:
-                return <DashboardPage />;
-        }
-    };
-
-    return (
-        <div className="min-h-screen bg-slate-950 text-white">
-            <Sidebar
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                sidebarOpen={sidebarOpen}
-                setSidebarOpen={setSidebarOpen}
-            />
-
-            <div className="lg:ml-64">
-                <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-                <main className="p-4 lg:p-8">
-                    {renderPage()}
-                </main>
-            </div>
-        </div>
-    );
-}
+// const AlertsPage = () => (
+//     <div className="flex items-center justify-center h-96">
+//         <div className="text-center">
+//             <AlertTriangle className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
+//             <h2 className="text-2xl font-bold text-white mb-2">Alerts Page</h2>
+//             <p className="text-gray-400">Coming soon...</p>
+//         </div>
+//     </div>
+// );
+//
+// const LogsPage = () => (
+//     <div className="flex items-center justify-center h-96">
+//         <div className="text-center">
+//             <FileText className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
+//             <h2 className="text-2xl font-bold text-white mb-2">Logs Page</h2>
+//             <p className="text-gray-400">Coming soon...</p>
+//         </div>
+//     </div>
+// );
+//
+// const ActionsPage = () => (
+//     <div className="flex items-center justify-center h-96">
+//         <div className="text-center">
+//             <Activity className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
+//             <h2 className="text-2xl font-bold text-white mb-2">Actions Page</h2>
+//             <p className="text-gray-400">Coming soon...</p>
+//         </div>
+//     </div>
+// );
+//
+// const ScanPage = () => (
+//     <div className="flex items-center justify-center h-96">
+//         <div className="text-center">
+//             <Scan className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
+//             <h2 className="text-2xl font-bold text-white mb-2">Scan Page</h2>
+//             <p className="text-gray-400">Coming soon...</p>
+//         </div>
+//     </div>
+// );
+//
+// const SettingsPage = () => (
+//     <div className="flex items-center justify-center h-96">
+//         <div className="text-center">
+//             <User className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
+//             <h2 className="text-2xl font-bold text-white mb-2">Settings Page</h2>
+//             <p className="text-gray-400">Coming soon...</p>
+//         </div>
+//     </div>
+// );

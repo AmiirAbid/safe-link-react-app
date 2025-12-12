@@ -2,7 +2,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
+import DashboardLayout from "@/layouts/DashboardLayout.jsx";
 
 function App() {
     return (
@@ -20,7 +20,7 @@ function App() {
                 </Route>
 
                 {/* Example: Protected or other pages */}
-                <Route path="/dashboard" element={<Dashboard/>}/>
+                <Route path="/dashboard" element={<DashboardLayout/>}/>
             </Routes>
         </Router>
     );
