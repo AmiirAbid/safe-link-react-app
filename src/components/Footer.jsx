@@ -44,7 +44,7 @@ const Footer = () => {
                 </div>
 
                 <div className="pt-8 border-t border-cyan-500/20 text-center text-gray-400 text-sm">
-                    © 2024 SafeLink. All rights reserved.
+                    © 2025 SafeLink. All rights reserved.
                 </div>
             </div>
         </footer>

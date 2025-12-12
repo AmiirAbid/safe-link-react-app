@@ -402,7 +402,7 @@ export default function AuthPage() {
                 {/* Additional Info */}
                 <div className="mt-6 text-center text-gray-500 text-xs">
                     <p>Protected by SafeLink Security</p>
-                    <p className="mt-1">© 2024 SafeLink. All rights reserved.</p>
+                    <p className="mt-1">© 2025 SafeLink. All rights reserved.</p>
                 </div>
             </div>
         </div>
