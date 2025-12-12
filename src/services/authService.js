@@ -7,6 +7,7 @@ export const authService = {
       
       // Stocke le token si backend le renvoie
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       return data;
     } catch (error) {
       console.error("Login error:", error);

@@ -6,7 +6,7 @@ import {
 // Services API (to be implemented later)
 const dashboardService = {
     getStatistics: async () => {
-        // TODO: Implement actual API call
+
         console.log('Fetching statistics...');
 
         // Simulated API call
@@ -25,7 +25,7 @@ const dashboardService = {
                         { id: 3, type: 'Brute Force', ip: '172.16.0.88', severity: 'medium', time: '1 hour ago' },
                     ],
                     trafficData: [
-                        { time: '00:00', value: 450 },
+                        { time: '00:00', value: 50 },
                         { time: '04:00', value: 380 },
                         { time: '08:00', value: 820 },
                         { time: '12:00', value: 1200 },
@@ -265,70 +265,26 @@ export default function DashboardPage() {
 
             {/* Recent Alerts */}
             <div className="p-6 bg-slate-900/50 backdrop-blur border border-cyan-500/20 rounded-xl">
-                <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-xl font-bold text-white">Recent Alerts</h3>
+            <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-white">Recent Alerts</h3>
                     <button className="flex items-center space-x-2 text-[#6abaca] hover:text-cyan-400 transition-colors">
-                        <span className="text-sm">View All</span>
-                        <ChevronRight className="w-4 h-4" />
-                    </button>
-                </div>
-                <div className="space-y-3">
-                    {stats.recentAlerts.map((alert) => (
-                        <RecentAlertCard key={alert.id} alert={alert} />
-                    ))}
-                </div>
+                    <span className="text-sm">View All</span>
+                    <ChevronRight className="w-4 h-4" />
+                </button>
             </div>
+            <div className="space-y-3">
+                {stats?.recentAlerts?.length > 0 ? (
+                    stats.recentAlerts.map((alert) => (
+                        <RecentAlertCard key={alert.id} alert={alert} />
+                    ))
+                ) : (
+                    <p className="text-gray-400 text-sm">No alerts</p>
+                )}
+            </div>
+        </div>
+
+
         </div>
     );
 };
 
-// Placeholder Pages
-// const AlertsPage = () => (
-//     <div className="flex items-center justify-center h-96">
-//         <div className="text-center">
-//             <AlertTriangle className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-//             <h2 className="text-2xl font-bold text-white mb-2">Alerts Page</h2>
-//             <p className="text-gray-400">Coming soon...</p>
-//         </div>
-//     </div>
-// );
-//
-// const LogsPage = () => (
-//     <div className="flex items-center justify-center h-96">
-//         <div className="text-center">
-//             <FileText className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-//             <h2 className="text-2xl font-bold text-white mb-2">Logs Page</h2>
-//             <p className="text-gray-400">Coming soon...</p>
-//         </div>
-//     </div>
-// );
-//
-// const ActionsPage = () => (
-//     <div className="flex items-center justify-center h-96">
-//         <div className="text-center">
-//             <Activity className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-//             <h2 className="text-2xl font-bold text-white mb-2">Actions Page</h2>
-//             <p className="text-gray-400">Coming soon...</p>
-//         </div>
-//     </div>
-// );
-//
-// const ScanPage = () => (
-//     <div className="flex items-center justify-center h-96">
-//         <div className="text-center">
-//             <Scan className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-//             <h2 className="text-2xl font-bold text-white mb-2">Scan Page</h2>
-//             <p className="text-gray-400">Coming soon...</p>
-//         </div>
-//     </div>
-// );
-//
-// const SettingsPage = () => (
-//     <div className="flex items-center justify-center h-96">
-//         <div className="text-center">
-//             <User className="w-16 h-16 text-[#6abaca] mx-auto mb-4" />
-//             <h2 className="text-2xl font-bold text-white mb-2">Settings Page</h2>
-//             <p className="text-gray-400">Coming soon...</p>
-//         </div>
-//     </div>
-// );

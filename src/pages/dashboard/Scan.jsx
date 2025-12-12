@@ -424,7 +424,6 @@ export default function ScanPage() {
         const categories = {
             packetStats: {},
             flowStats: {},
-            timingStats: {},
             sizeStats: {},
             connectionStats: {}
         };
@@ -434,9 +433,7 @@ export default function ScanPage() {
                 categories.packetStats[key] = value;
             } else if (key.includes('Flow') || key.includes('IAT')) {
                 categories.flowStats[key] = value;
-            } else if (key.includes('Duration') || key.includes('Time')) {
-                categories.timingStats[key] = value;
-            } else if (key.includes('Size') || key.includes('Length') || key.includes('Bytes')) {
+            }  else if (key.includes('Size') || key.includes('Length') || key.includes('Bytes')) {
                 categories.sizeStats[key] = value;
             } else {
                 categories.connectionStats[key] = value;
@@ -542,14 +539,13 @@ export default function ScanPage() {
                                         </span>
                                     </div>
 
-                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
                                         {Object.entries(featureCategories).map(([category, features]) => (
                                             <FeatureCategory
                                                 key={category}
                                                 title={category.charAt(0).toUpperCase() + category.slice(1).replace('Stats', ' Statistics')}
                                                 icon={category.includes('packet') ? HardDrive : 
                                                       category.includes('flow') ? Network :
-                                                      category.includes('timing') ? Clock :
                                                       category.includes('size') ? Database : Cpu}
                                                 features={features}
                                             />

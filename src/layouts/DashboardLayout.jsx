@@ -1,15 +1,19 @@
-import React, {useState} from "react";
-import {Sidebar} from "@/components/dashboard/Sidebar.jsx";
-import {Header} from "@/components/dashboard/Header.jsx";
+import React, { useState } from "react";
+import { Sidebar } from "@/components/dashboard/Sidebar.jsx";
+import { Header } from "@/components/dashboard/Header.jsx";
 import DashboardPage from "@/pages/dashboard/Dashboard.jsx";
 import AlertsPage from "@/pages/dashboard/Alerts.jsx";
 import LogsPage from "@/pages/dashboard/Logs.jsx";
 import ActionsPage from "@/pages/dashboard/Actions.jsx";
 import ScanPage from "@/pages/dashboard/Scan.jsx";
+import SettingsPage from "@/pages/dashboard/Settings.jsx";
 
 export default function DashboardLayout() {
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    if (!localStorage.getItem("token")) {
+        window.location.href = "/auth";
+    }
 
     const renderPage = () => {
         switch (currentPage) {
