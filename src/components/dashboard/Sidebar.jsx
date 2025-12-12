@@ -40,7 +40,7 @@ export const Sidebar = ({ currentPage, setCurrentPage, sidebarOpen, setSidebarOp
                     {/* Logo */}
                     <div className="flex items-center justify-between p-6 border-b border-cyan-500/20">
                         <div className="flex items-center space-x-2">
-                            <Shield className="w-8 h-8 text-[#6abaca]" />
+                            <img src="/safelink-logo.png" alt="SafeLink" className="w-8 h-8 text-[#6abaca]" />
                             <span className="text-xl font-bold bg-gradient-to-r from-[#6abaca] to-cyan-300 bg-clip-text text-transparent">
                 SafeLink
               </span>
