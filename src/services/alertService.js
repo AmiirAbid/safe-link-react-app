@@ -1,27 +1,9 @@
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-// Ajouter le token automatiquement si existant
-api.interceptors.request.use(config => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+import {api} from "@/services/api.js";
 
 export const alertService = {
   getAlerts: async (params = {}) => {
     try {
-      const { data } = await api.get("/alerts", { params });
+      const { data } = await api.get("/alerts?page=1&limit=30", { params });
       return data;
     } catch (error) {
       throw error.response?.data || error;

@@ -1,19 +1,9 @@
-import axios from "axios";
-
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-
-// Crée une instance axios avec l'URL de base
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import {api} from "@/services/api.js";
 
 export const authService = {
   login: async (email, password) => {
     try {
-      const { data } = await api.post("/api/auth/login", { email, password });
+      const { data } = await api.post("/auth/login", { email, password });
       
       // Stocke le token si backend le renvoie
       localStorage.setItem("token", data.token);
@@ -29,7 +19,7 @@ export const authService = {
 
   signup: async (name, email, password) => {
     try {
-      const { data } = await api.post("/api/auth/signup", { name, email, password });
+      const { data } = await api.post("/auth/signup", { name, email, password });
       
       // Stocke le token si backend le renvoie
       localStorage.setItem("token", data.token);

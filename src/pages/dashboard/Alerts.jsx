@@ -1,128 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
     AlertTriangle, Search, Filter, Download, RefreshCw,
-    Eye, Check, X, Shield, Clock, TrendingUp, ChevronDown,
+    Check, X, Shield, Clock, ChevronDown,
     ChevronUp, ExternalLink, Lock, Zap
 } from 'lucide-react';
 
-// Alert Service API (to be implemented later)
-const alertService = {
-    getAlerts: async (filters) => {
-        // TODO: Implement actual API call
-        console.log('Fetching alerts with filters:', filters);
-
-        // Simulated API call with mock data
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    alerts: [
-                        {
-                            _id: '1',
-                            timestamp: new Date(Date.now() - 2 * 60 * 1000),
-                            src_ip: '192.168.1.105',
-                            dst_ip: '10.0.0.50',
-                            dst_port: 80,
-                            attack_type: 'DDoS Attack',
-                            severity: 'critical',
-                            confidence: 0.95,
-                            status: 'open',
-                            mitigation_action: null
-                        },
-                        {
-                            _id: '2',
-                            timestamp: new Date(Date.now() - 15 * 60 * 1000),
-                            src_ip: '172.16.0.88',
-                            dst_ip: '10.0.0.51',
-                            dst_port: 22,
-                            attack_type: 'Brute Force',
-                            severity: 'high',
-                            confidence: 0.87,
-                            status: 'open',
-                            mitigation_action: null
-                        },
-                        {
-                            _id: '3',
-                            timestamp: new Date(Date.now() - 45 * 60 * 1000),
-                            src_ip: '10.0.0.45',
-                            dst_ip: '10.0.0.52',
-                            dst_port: 443,
-                            attack_type: 'Port Scan',
-                            severity: 'medium',
-                            confidence: 0.72,
-                            status: 'mitigated',
-                            mitigation_action: 'block'
-                        },
-                        {
-                            _id: '4',
-                            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-                            src_ip: '203.45.67.89',
-                            dst_ip: '10.0.0.53',
-                            dst_port: 3306,
-                            attack_type: 'SQL Injection',
-                            severity: 'high',
-                            confidence: 0.91,
-                            status: 'mitigated',
-                            mitigation_action: 'isolate'
-                        },
-                        {
-                            _id: '5',
-                            timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
-                            src_ip: '198.51.100.42',
-                            dst_ip: '10.0.0.54',
-                            dst_port: 8080,
-                            attack_type: 'XSS Attack',
-                            severity: 'medium',
-                            confidence: 0.68,
-                            status: 'ignored',
-                            mitigation_action: null
-                        },
-                        {
-                            _id: '6',
-                            timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
-                            src_ip: '192.0.2.123',
-                            dst_ip: '10.0.0.55',
-                            dst_port: 21,
-                            attack_type: 'FTP Exploit',
-                            severity: 'low',
-                            confidence: 0.54,
-                            status: 'open',
-                            mitigation_action: null
-                        },
-                    ],
-                    summary: {
-                        total: 1247,
-                        open: 23,
-                        mitigated: 1198,
-                        ignored: 26,
-                        critical: 5,
-                        high: 12,
-                        medium: 4,
-                        low: 2
-                    }
-                });
-            }, 800);
-        });
-    },
-
-    updateAlertStatus: async (alertId, status, mitigationAction) => {
-        // TODO: Implement actual API call
-        console.log('Updating alert:', { alertId, status, mitigationAction });
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ success: true });
-            }, 500);
-        });
-    },
-
-    exportAlerts: async (filters) => {
-        // TODO: Implement actual API call
-        console.log('Exporting alerts with filters:', filters);
-        return Promise.resolve({ success: true });
-    }
-};
+import {alertService} from "@/services/alertService.js";
+import {mitigationService} from "@/services/mitigationService.js";
 
 // Utility function to format time ago
-const formatTimeAgo = (date) => {
+const formatTimeAgo = (input) => {
+    const date = input instanceof Date ? input : new Date(input);
     const seconds = Math.floor((new Date() - date) / 1000);
 
     if (seconds < 60) return `${seconds}s ago`;
@@ -327,9 +215,9 @@ export default function AlertsPage() {
         setIsLoading(true);
         try {
             const data = await alertService.getAlerts({
-                search: searchTerm,
-                severity: severityFilter,
-                status: statusFilter
+                // search: searchTerm,
+                // severity: severityFilter,
+                // status: statusFilter
             });
             setAlerts(data.alerts);
             setSummary(data.summary);
@@ -342,7 +230,7 @@ export default function AlertsPage() {
 
     const handleStatusChange = async (alertId, status, mitigationAction) => {
         try {
-            await alertService.updateAlertStatus(alertId, status, mitigationAction);
+            await mitigationService.mitigateAlert(alertId, mitigationAction);
             // Reload alerts after update
             loadAlerts();
         } catch (error) {

@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { 
-  Shield, Lock, Zap, Network, ChevronRight, Eye, AlertTriangle, 
-  CheckCircle, Globe, Users, Server, Cpu, ShieldCheck, Cloud, 
-  MessageSquare, Mail, Phone, MapPin 
+  Shield, Lock, Zap, Network, ChevronRight, Eye, AlertTriangle, Globe, Users, Server, Cpu, ShieldCheck
 } from 'lucide-react';
 import AnimatedBackground from '../components/AnimatedBackground';
 // Hook personnalisé pour les animations au défilement
@@ -30,9 +28,6 @@ const useScrollAnimation = () => {
   
   return ref;
 };
-
-// Composant AnimatedBackground
-
 
 // Hero Section
 const Hero = () => {
@@ -221,9 +216,6 @@ const Solutions = () => {
               </div>
             ))}
           </div>
-          
-          {/* Stats Section */}
-        
         </div>
       </div>
     </section>
@@ -233,51 +225,6 @@ const Solutions = () => {
 // Contact Section
 const Contact = () => {
   const ref = useScrollAnimation();
-  
-  const contactMethods = [
-    {
-      icon: MessageSquare,
-      title: 'Live Chat',
-      description: 'Chat with our security experts',
-      action: 'Start Chat',
-      color: 'from-cyan-500/20 to-blue-500/20'
-    },
-    {
-      icon: Users,
-      title: 'Schedule Demo',
-      description: 'Book a personalized demo',
-      action: 'Book Now',
-      color: 'from-blue-500/20 to-purple-500/20'
-    },
-    {
-      icon: Cloud,
-      title: 'Technical Support',
-      description: '24/7 technical assistance',
-      action: 'Get Support',
-      color: 'from-purple-500/20 to-cyan-500/20'
-    }
-  ];
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email',
-      details: ['support@safelink.com', 'sales@safelink.com'],
-      color: 'text-cyan-400'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-      color: 'text-blue-400'
-    },
-    {
-      icon: MapPin,
-      title: 'Office',
-      details: ['123 Security Ave', 'San Francisco, CA 94107'],
-      color: 'text-purple-400'
-    }
-  ];
 
   return (
     <section id="contact" className="relative py-24 px-4">
@@ -370,53 +317,6 @@ const Contact = () => {
   );
 };
 
-// CTA Section
-// const CTA = () => {
-//   return (
-//     <section className="relative py-24 px-4">
-//       <div className="max-w-5xl mx-auto">
-//         <div className="relative p-12 bg-gradient-to-br from-slate-900 to-slate-950 border border-cyan-500/30 rounded-2xl overflow-hidden">
-//           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-cyan-500/20 via-transparent to-transparent"></div>
-//           <div className="relative text-center">
-//             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-//               Ready to Secure Your Network?
-//             </h2>
-//             <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-//               Join thousands of enterprises protecting their infrastructure with SafeLink
-//             </p>
-//             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-//               <button className="px-8 py-4 bg-[#6abaca] text-slate-950 rounded-lg font-semibold text-lg hover:bg-cyan-400 transition-all hover:shadow-xl hover:shadow-cyan-500/50">
-//                 Start Your Free Trial
-//               </button>
-//               <button className="px-8 py-4 bg-transparent border-2 border-[#6abaca] text-[#6abaca] rounded-lg font-semibold text-lg hover:bg-[#6abaca]/10 transition-all">
-//                 Contact Sales
-//               </button>
-//             </div>
-//             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm text-gray-400">
-//               <div className="flex items-center">
-//                 <CheckCircle className="w-5 h-5 text-[#6abaca] mr-2" />
-//                 No credit card required
-//               </div>
-//               <div className="flex items-center">
-//                 <CheckCircle className="w-5 h-5 text-[#6abaca] mr-2" />
-//                 14-day free trial
-//               </div>
-//               <div className="flex items-center">
-//                 <CheckCircle className="w-5 h-5 text-[#6abaca] mr-2" />
-//                 Full support included
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// Footer Component
-
-
-
 export default function Home() {
     return (
         <div className="relative min-h-screen bg-slate-950 text-white">
@@ -426,9 +326,7 @@ export default function Home() {
                 <Features />
                 <Solutions />
                 <Contact />
-                
             </main>
         </div>
     );
 }
-// Main App Component
