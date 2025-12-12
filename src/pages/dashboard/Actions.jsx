@@ -1,60 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Shield, Check, X, Search, Filter, RefreshCw, Download,
+    Shield, Check, X, Search, RefreshCw, Download,
     Clock, ChevronDown, ChevronUp, ExternalLink, Zap, Lock
 } from 'lucide-react';
 
-// Mock Actions Service
-const actionsService = {
-    getActions: async (filters) => {
-        console.log("Fetching actions with filters:", filters);
-
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    actions: [
-                        {
-                            _id: '1',
-                            timestamp: new Date(Date.now() - 5 * 60 * 1000),
-                            performed_by: { name: "Admin User" },
-                            action: "block",
-                            target_ip: "192.168.1.10",
-                            status: "success"
-                        },
-                        {
-                            _id: '2',
-                            timestamp: new Date(Date.now() - 30 * 60 * 1000),
-                            performed_by: { name: "Security Bot" },
-                            action: "isolate",
-                            target_ip: "10.0.0.15",
-                            status: "success"
-                        },
-                        {
-                            _id: '3',
-                            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-                            performed_by: { name: "Admin User" },
-                            action: "block",
-                            target_ip: "203.45.66.13",
-                            status: "failed"
-                        }
-                    ],
-                    summary: {
-                        total: 3,
-                        success: 2,
-                        failed: 1,
-                        block: 2,
-                        isolate: 1
-                    }
-                });
-            }, 600);
-        });
-    },
-
-    exportActions: async () => {
-        console.log("Exporting actions...");
-        return Promise.resolve({ success: true });
-    }
-};
+import {mitigationService} from "@/services/mitigationService.js";
 
 // Utility: Time Ago
 const formatTimeAgo = (date) => {
@@ -196,7 +146,7 @@ export default function ActionsPage() {
     const loadActions = async () => {
         setIsLoading(true);
         try {
-            const data = await actionsService.getActions({
+            const data = await mitigationService.getMitigations({
                 search: searchTerm,
                 type: typeFilter,
                 status: statusFilter

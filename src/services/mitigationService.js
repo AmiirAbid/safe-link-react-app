@@ -9,4 +9,12 @@ export const mitigationService = {
       throw error.response?.data || error;
     }
   },
+    getMitigations: async () => {
+      try {
+          const { data } = await api.get(`/mitigations`);
+          return data;
+      } catch (error) {
+          throw error.response?.data || error;
+      }
+    }
 };

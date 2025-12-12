@@ -5,6 +5,7 @@ import DashboardPage from "@/pages/dashboard/Dashboard.jsx";
 import AlertsPage from "@/pages/dashboard/Alerts.jsx";
 import LogsPage from "@/pages/dashboard/Logs.jsx";
 import ActionsPage from "@/pages/dashboard/Actions.jsx";
+import ScanPage from "@/pages/dashboard/Scan.jsx";
 
 export default function DashboardLayout() {
     const [currentPage, setCurrentPage] = useState('dashboard');
