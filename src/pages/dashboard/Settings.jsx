@@ -9,7 +9,6 @@ import {
 // User Service API (to be implemented later)
 const userService = {
     getUserProfile: async () => {
-        // TODO: Implement actual API call
         console.log('Fetching user profile...');
         const userProfile = JSON.parse(localStorage.getItem("user"))
 console.log(userProfile)
@@ -37,7 +36,6 @@ console.log(userProfile)
     },
 
     updateProfile: async (data) => {
-        // TODO: Implement actual API call
         console.log('Updating profile...', data);
 
         return new Promise((resolve) => {
@@ -48,7 +46,6 @@ console.log(userProfile)
     },
 
     changePassword: async (currentPassword, newPassword) => {
-        // TODO: Implement actual API call
         console.log('Changing password...');
 
         return new Promise((resolve, reject) => {
@@ -63,7 +60,6 @@ console.log(userProfile)
     },
 
     updateSettings: async (settings) => {
-        // TODO: Implement actual API call
         console.log('Updating settings...', settings);
 
         return new Promise((resolve) => {
@@ -74,7 +70,6 @@ console.log(userProfile)
     },
 
     exportData: async () => {
-        // TODO: Implement actual API call
         console.log('Exporting user data...');
         return Promise.resolve({ success: true });
     },
@@ -86,7 +81,6 @@ console.log(userProfile)
     }
 };
 
-// Input Field Component
 const InputField = ({ icon: Icon, label, type = 'text', value,
 onChange, disabled = false, error = '' }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -135,7 +129,6 @@ text-red-400 text-sm">
     );
 };
 
-// Profile Section Component
 const ProfileSection = ({ profile, onUpdate }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isSaving, setIsSaving] = useState(false);

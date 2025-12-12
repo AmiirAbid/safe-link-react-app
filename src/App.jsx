@@ -10,14 +10,12 @@ function App() {
     return (
         <Router>
             <Routes>
-                {/* Public Pages */}
                 <Route path="/" element={
                     <MainLayout></MainLayout>
                 }>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/auth" element={<Auth/>}/>
 
-                    {/* 404 Page */}
                     <Route path="*" element={
                         <div className="relative min-h-screen bg-slate-950 text-white flex justify-center items-center">
                             <AnimatedBackground />
@@ -28,7 +26,6 @@ function App() {
                     }/>
                 </Route>
 
-                {/* Example: Protected or other pages */}
                 <Route path="/dashboard" element={<DashboardLayout/>}/>
             </Routes>
         </Router>

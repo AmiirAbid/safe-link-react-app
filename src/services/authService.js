@@ -5,13 +5,11 @@ export const authService = {
     try {
       const { data } = await api.post("/auth/login", { email, password });
       
-      // Stocke le token si backend le renvoie
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       return data;
     } catch (error) {
       console.error("Login error:", error);
-      // axios error handling
       const message =
         error.response?.data?.message || error.message || "Login failed";
       throw new Error(message);
@@ -22,7 +20,6 @@ export const authService = {
     try {
       const { data } = await api.post("/auth/signup", { name, email, password });
       
-      // Stocke le token si backend le renvoie
       localStorage.setItem("token", data.token);
       return data;
     } catch (error) {

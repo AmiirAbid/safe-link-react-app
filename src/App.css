@@ -22,7 +22,6 @@
     animation: fade-in 1s ease-out;
 }
 
-/* Container */
 .animated-bg-container {
   position: fixed;
   inset: 0;
@@ -30,20 +29,17 @@
   pointer-events: none;
 }
 
-/* Dark gradient background */
 .bg-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom right, #0a0f1a, #0c1b26, #0a0f1a);
 }
 
-/* Particles layer */
 .particles-layer {
   position: absolute;
   inset: 0;
 }
 
-/* Particles */
 .particle {
   position: absolute;
   background: #22d3ee;
@@ -51,14 +47,12 @@
   opacity: 0.3;
 }
 
-/* Combined animation: flicker + movement */
 .move {
   animation-name: float, flicker;
   animation-timing-function: ease-in-out, ease-in-out;
   animation-iteration-count: infinite, infinite;
 }
 
-/* Particle movement (random drift) */
 @keyframes float {
   0% {
     transform: translate(0, 0);
@@ -71,7 +65,6 @@
   }
 }
 
-/* Flicker animation */
 @keyframes flicker {
   0%,
   100% {
@@ -82,14 +75,12 @@
   }
 }
 
-/* Radial glow overlay */
 .radial-glow {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at center, rgba(34, 211, 238, 0.1), transparent 70%);
 }
 
-/* Ajouter dans votre fichier CSS global ou dans le composant de style */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -105,7 +96,6 @@
   animation: fade-in-up 0.8s ease-out forwards;
 }
 
-/* Animation pour le Hero (si elle n'existe pas déjà) */
 @keyframes fade-in {
   from {
     opacity: 0;

@@ -248,7 +248,6 @@ const SignupForm = ({ onSwitchToLogin }) => {
             const response = await authService.signup(formData.name, formData.email, formData.password);
             setSuccessMessage('Account created successfully! Redirecting...');
             console.log('Signup successful:', response);
-            // TODO: Handle successful signup (redirect, store token, etc.)
         } catch (error) {
             setErrors({ submit: error.message || 'Signup failed. Please try again.' });
         } finally {
