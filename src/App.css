@@ -21,3 +21,70 @@
 .animate-fade-in {
     animation: fade-in 1s ease-out;
 }
+
+/* Container */
+.animated-bg-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Dark gradient background */
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #0a0f1a, #0c1b26, #0a0f1a);
+}
+
+/* Particles layer */
+.particles-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  background: #22d3ee;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+/* Combined animation: flicker + movement */
+.move {
+  animation-name: float, flicker;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+
+/* Particle movement (random drift) */
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(var(--drift-x), var(--drift-y));
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Flicker animation */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Radial glow overlay */
+.radial-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(34, 211, 238, 0.1), transparent 70%);
+}
