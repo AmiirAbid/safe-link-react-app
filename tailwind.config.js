@@ -47,6 +47,15 @@ export default {
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
             },
+            keyframes: {
+                flicker: {
+                    '0%, 100%': { opacity: 0.2 },
+                    '50%': { opacity: 1 },
+                },
+            },
+            animation: {
+                flicker: 'flicker var(--duration) ease-in-out infinite',
+            },
         },
     },
     plugins: [],

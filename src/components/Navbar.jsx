@@ -1,6 +1,16 @@
 import {useState} from "react";
-import { Shield, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+    Dialog, DialogClose,
+    DialogContent,
+    DialogDescription, DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import {Label} from "@/components/ui/label.tsx";
+import {Input} from "@/components/ui/input.tsx";
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,7 +20,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-2">
-                        <Shield className="w-8 h-8 text-[#6abaca]" />
+                        <img src='/safelink-logo.png' className="w-8 h-8 object-cover" alt="safelink"/>
                         <span className="text-2xl font-bold text-slate-900">SafeLink</span>
                     </div>
 
@@ -19,9 +29,33 @@ const Navbar = () => {
                         <a href="#solutions" className="text-slate-600 hover:text-[#6abaca] transition">Solutions</a>
                         <a href="#about" className="text-slate-600 hover:text-[#6abaca] transition">About</a>
                         <a href="#contact" className="text-slate-600 hover:text-[#6abaca] transition">Contact</a>
-                        <Button className="bg-[#6abaca] hover:bg-[#5aa9b9] text-white">
-                            Get Started
-                        </Button>
+                        <Dialog>
+                                <form>
+                                    <DialogTrigger asChild>
+                                        <Button className="bg-[#6abaca] hover:bg-[#5aa9b9] text-white">
+                                            Login
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[425px] bg-white">
+                                        <DialogHeader>
+                                            <DialogTitle>Connect to your account</DialogTitle>
+                                        </DialogHeader>
+                                        <div className="grid gap-4">
+                                            <div className="grid gap-3">
+                                                <Label htmlFor="email">Email</Label>
+                                                <Input type="email" id="email" name="email" placeholder="Email" />
+                                            </div>
+                                            <div className="grid gap-3">
+                                                <Label htmlFor="password">Password</Label>
+                                                <Input type="password" id="password" name="password" placeholder="Password" />
+                                            </div>
+                                        </div>
+                                        <DialogFooter>
+                                            <Button className="w-full bg-[#6abaca] text-white" type="submit">Connect</Button>
+                                        </DialogFooter>
+                                    </DialogContent>
+                                </form>
+                        </Dialog>
                     </div>
 
                     <button
