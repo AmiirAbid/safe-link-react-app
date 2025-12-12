@@ -1,9 +1,10 @@
 import {api} from "@/services/api.js";
 
 export const scanService = {
-  startScan: async (target) => {
+  startScan: async () => {
     try {
-      const { data } = await api.post("/scan", { target });
+      const { data } = await api.get("/scan"
+      );
       return data;
     } catch (error) {
       throw error.response?.data || error;
