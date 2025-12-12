@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import AnimatedBackground from "@/components/AnimatedBackground.jsx";
-import {authService} from "@/services/authService.js";
+import { authService } from "@/services/authService.js";
 
 // Input Field Component
 const InputField = ({ icon: Icon, type, placeholder, value, onChange, name, error }) => {
@@ -18,9 +18,8 @@ const InputField = ({ icon: Icon, type, placeholder, value, onChange, name, erro
                     placeholder={placeholder}
                     value={value}
                     onChange={onChange}
-                    className={`w-full pl-12 pr-12 py-3 bg-slate-900/50 border ${
-                        error ? 'border-red-500/50' : 'border-cyan-500/20'
-                    } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6abaca] focus:ring-2 focus:ring-[#6abaca]/20 transition-all`}
+                    className={`w-full pl-12 pr-12 py-3 bg-slate-900/50 border ${error ? 'border-red-500/50' : 'border-cyan-500/20'
+                        } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[#6abaca] focus:ring-2 focus:ring-[#6abaca]/20 transition-all`}
                 />
                 {type === 'password' && (
                     <button
@@ -93,7 +92,7 @@ const LoginForm = ({ onSwitchToSignup }) => {
             const response = await authService.login(formData.email, formData.password);
             setSuccessMessage('Login successful! Redirecting...');
             console.log('Login successful:', response);
-            // TODO: Handle successful login (redirect, store token, etc.)
+            window.location.href = "/dashboard"
         } catch (error) {
             setErrors({ submit: error.message || 'Login failed. Please try again.' });
         } finally {
@@ -374,8 +373,8 @@ export default function AuthPage() {
                     <div className="flex items-center justify-center space-x-2 mb-4">
                         <img src="/safelink-logo.png" alt="SafeLink" className="w-12 h-12 text-[#6abaca]" />
                         <span className="text-3xl font-bold bg-gradient-to-r from-[#6abaca] to-cyan-300 bg-clip-text text-transparent">
-              SafeLink
-            </span>
+                            SafeLink
+                        </span>
                     </div>
                     <h1 className="text-2xl font-bold text-white mb-2">
                         {isLogin ? 'Welcome Back' : 'Create Your Account'}

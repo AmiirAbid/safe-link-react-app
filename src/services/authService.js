@@ -1,33 +1,48 @@
+import axios from "axios";
+
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
+// Crée une instance axios avec l'URL de base
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const authService = {
-    login: async (email, password) => {
-        // TODO: Implement actual API call
-        console.log('Login attempt:', { email, password });
-
-        // Simulated API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (email && password) {
-                    resolve({ success: true, user: { email, name: 'User' } });
-                } else {
-                    reject(new Error('Invalid credentials'));
-                }
-            }, 1500);
-        });
-    },
-
-    signup: async (name, email, password) => {
-        // TODO: Implement actual API call
-        console.log('Signup attempt:', { name, email, password });
-
-        // Simulated API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (name && email && password) {
-                    resolve({ success: true, user: { email, name } });
-                } else {
-                    reject(new Error('Registration failed'));
-                }
-            }, 1500);
-        });
+  login: async (email, password) => {
+    try {
+      const { data } = await api.post("/api/auth/login", { email, password });
+      
+      // Stocke le token si backend le renvoie
+      localStorage.setItem("token", data.token);
+      return data;
+    } catch (error) {
+      console.error("Login error:", error);
+      // axios error handling
+      const message =
+        error.response?.data?.message || error.message || "Login failed";
+      throw new Error(message);
     }
+  },
+
+  signup: async (name, email, password) => {
+    try {
+      const { data } = await api.post("/api/auth/signup", { name, email, password });
+      
+      // Stocke le token si backend le renvoie
+      localStorage.setItem("token", data.token);
+      return data;
+    } catch (error) {
+      console.error("Signup error:", error);
+      const message =
+        error.response?.data?.message || error.message || "Signup failed";
+      throw new Error(message);
+    }
+  },
+
+  logout: () => {
+    localStorage.removeItem("token");
+  },
 };
