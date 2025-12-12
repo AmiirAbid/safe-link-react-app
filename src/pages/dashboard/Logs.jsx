@@ -173,7 +173,6 @@ const LogRow = ({ log, expanded, onToggleExpand }) => {
 // Main Logs Page Component
 export default function LogsPage() {
     const [logs, setLogs] = useState([]);
-    const [summary, setSummary] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [protocolFilter, setProtocolFilter] = useState('all');
@@ -190,7 +189,6 @@ export default function LogsPage() {
         try {
             const data = await logService.getLogs();
             setLogs(data.data);
-            setSummary(data.summary);
         } catch (error) {
             console.error('Error loading logs:', error);
         } finally {
@@ -255,58 +253,6 @@ export default function LogsPage() {
                     </button>
                 </div>
             </div>
-
-            {/* Summary Cards */}
-            {summary && (
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <SummaryCard
-                        icon={FileText}
-                        label="Total Logs"
-                        value={summary.totalLogs.toLocaleString()}
-                    />
-                    <SummaryCard
-                        icon={Activity}
-                        label="Total Packets"
-                        value={summary.totalPackets.toLocaleString()}
-                    />
-                    <SummaryCard
-                        icon={Database}
-                        label="Total Data"
-                        value={formatBytes(summary.totalBytes)}
-                    />
-                    <SummaryCard
-                        icon={Clock}
-                        label="Avg Duration"
-                        value={formatDuration(summary.avgFlowDuration)}
-                    />
-                </div>
-            )}
-
-            {/* Protocol Distribution Chart */}
-            {summary && (
-                <div className="p-6 bg-slate-900/50 backdrop-blur border border-cyan-500/20 rounded-xl">
-                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <Network className="w-5 h-5 text-[#6abaca]" />
-                        Protocol Distribution
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        {Object.entries(summary.protocolDistribution).map(([protocol, percentage]) => (
-                            <div key={protocol} className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                    <ProtocolBadge protocol={protocol} />
-                                    <span className="text-2xl font-bold text-white">{percentage}%</span>
-                                </div>
-                                <div className="h-3 bg-slate-800 rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full bg-gradient-to-r from-[#6abaca] to-cyan-400 transition-all duration-500"
-                                        style={{ width: `${percentage}%` }}
-                                    ></div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
 
             {/* Search and Filter Bar */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -384,7 +330,7 @@ export default function LogsPage() {
 
             {/* Pagination Info */}
             <div className="text-center text-sm text-gray-400">
-                Showing {filteredLogs.length} of {summary?.totalLogs.toLocaleString()} logs
+                Showing {filteredLogs.length} of logs
             </div>
         </div>
     );

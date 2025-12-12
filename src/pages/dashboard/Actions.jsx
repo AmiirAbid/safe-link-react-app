@@ -82,11 +82,6 @@ const ActionRow = ({ action, expanded, onToggleExpand }) => {
                                 <span className="text-gray-400">Target IP:</span>
                                 <span className="text-white font-mono">{action.target_ip}</span>
                             </div>
-
-                            <div className="flex items-center gap-2">
-                                <span className="text-gray-400">Performed By:</span>
-                                <span className="text-white">{action.performed_by?.name}</span>
-                            </div>
                         </div>
                     </div>
 
