@@ -16,7 +16,10 @@ export const Sidebar = ({ currentPage, setCurrentPage, sidebarOpen, setSidebarOp
 
     const handleLogout = () => {
         console.log('Logging out...');
-        // TODO: Implement logout logic
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        window.location.href = "/auth";
     };
 
     return (
@@ -38,7 +41,7 @@ export const Sidebar = ({ currentPage, setCurrentPage, sidebarOpen, setSidebarOp
       `}>
                 <div className="flex flex-col h-full">
                     {/* Logo */}
-                    <div className="flex items-center justify-between p-6 border-b border-cyan-500/20">
+                    <div className="flex items-center justify-between p-5 border-b border-cyan-500/20">
                         <div className="flex items-center space-x-2">
                             <img src="/safelink-logo.png" alt="SafeLink" className="w-8 h-8 text-[#6abaca]" />
                             <span className="text-xl font-bold bg-gradient-to-r from-[#6abaca] to-cyan-300 bg-clip-text text-transparent">
@@ -83,6 +86,7 @@ export const Sidebar = ({ currentPage, setCurrentPage, sidebarOpen, setSidebarOp
                             className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-all"
                         >
                             <LogOut className="w-5 h-5" />
+                            
                             <span className="font-medium">Logout</span>
                         </button>
                     </div>

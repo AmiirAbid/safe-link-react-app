@@ -7,7 +7,7 @@ import {logService} from "@/services/logService.js";
 // Services API (to be implemented later)
 const dashboardService = {
     getStatistics: async () => {
-        // TODO: Implement actual API call
+
         console.log('Fetching statistics...');
 
         // Simulated API call
@@ -340,6 +340,9 @@ export default function DashboardPage() {
                     ))}
                 </div>
             </div>
+        </div>
+
+
         </div>
     );
 };
