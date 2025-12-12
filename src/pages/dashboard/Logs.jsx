@@ -5,115 +5,11 @@ import {
     Server, Network, Clock, Database, Eye, Calendar
 } from 'lucide-react';
 
-// Log Service API (to be implemented later)
-const logService = {
-    getLogs: async (filters) => {
-        // TODO: Implement actual API call
-        console.log('Fetching logs with filters:', filters);
-
-        // Simulated API call with mock data
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    logs: [
-                        {
-                            _id: '1',
-                            timestamp: new Date(Date.now() - 1 * 60 * 1000),
-                            src_ip: '192.168.1.105',
-                            dst_ip: '10.0.0.50',
-                            protocol: 'TCP',
-                            dst_port: 443,
-                            packets: 1523,
-                            bytes: 2048576,
-                            flags: { syn: 1, ack: 145, fin: 1 },
-                            flow_duration: 3500
-                        },
-                        {
-                            _id: '2',
-                            timestamp: new Date(Date.now() - 3 * 60 * 1000),
-                            src_ip: '172.16.0.88',
-                            dst_ip: '10.0.0.51',
-                            protocol: 'UDP',
-                            dst_port: 53,
-                            packets: 42,
-                            bytes: 8960,
-                            flags: { syn: 0, ack: 0, fin: 0 },
-                            flow_duration: 120
-                        },
-                        {
-                            _id: '3',
-                            timestamp: new Date(Date.now() - 5 * 60 * 1000),
-                            src_ip: '10.0.0.45',
-                            dst_ip: '8.8.8.8',
-                            protocol: 'ICMP',
-                            dst_port: null,
-                            packets: 4,
-                            bytes: 336,
-                            flags: { syn: 0, ack: 0, fin: 0 },
-                            flow_duration: 4000
-                        },
-                        {
-                            _id: '4',
-                            timestamp: new Date(Date.now() - 8 * 60 * 1000),
-                            src_ip: '203.45.67.89',
-                            dst_ip: '10.0.0.52',
-                            protocol: 'TCP',
-                            dst_port: 80,
-                            packets: 2847,
-                            bytes: 4194304,
-                            flags: { syn: 1, ack: 892, fin: 1 },
-                            flow_duration: 12500
-                        },
-                        {
-                            _id: '5',
-                            timestamp: new Date(Date.now() - 12 * 60 * 1000),
-                            src_ip: '198.51.100.42',
-                            dst_ip: '10.0.0.53',
-                            protocol: 'TCP',
-                            dst_port: 22,
-                            packets: 156,
-                            bytes: 45056,
-                            flags: { syn: 1, ack: 78, fin: 1 },
-                            flow_duration: 8200
-                        },
-                        {
-                            _id: '6',
-                            timestamp: new Date(Date.now() - 15 * 60 * 1000),
-                            src_ip: '192.0.2.123',
-                            dst_ip: '10.0.0.54',
-                            protocol: 'UDP',
-                            dst_port: 123,
-                            packets: 8,
-                            bytes: 576,
-                            flags: { syn: 0, ack: 0, fin: 0 },
-                            flow_duration: 50
-                        },
-                    ],
-                    summary: {
-                        totalLogs: 45682,
-                        totalPackets: 2847523,
-                        totalBytes: 5368709120,
-                        avgFlowDuration: 5420,
-                        protocolDistribution: {
-                            TCP: 62,
-                            UDP: 28,
-                            ICMP: 10
-                        }
-                    }
-                });
-            }, 800);
-        });
-    },
-
-    exportLogs: async (filters) => {
-        // TODO: Implement actual API call
-        console.log('Exporting logs with filters:', filters);
-        return Promise.resolve({ success: true });
-    }
-};
+import {logService} from "@/services/logService.js";
 
 // Utility functions
-const formatTimeAgo = (date) => {
+const formatTimeAgo = (input) => {
+    const date = new Date(input);
     const seconds = Math.floor((new Date() - date) / 1000);
 
     if (seconds < 60) return `${seconds}s ago`;
@@ -277,7 +173,6 @@ const LogRow = ({ log, expanded, onToggleExpand }) => {
 // Main Logs Page Component
 export default function LogsPage() {
     const [logs, setLogs] = useState([]);
-    const [summary, setSummary] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [protocolFilter, setProtocolFilter] = useState('all');
@@ -292,13 +187,8 @@ export default function LogsPage() {
     const loadLogs = async () => {
         setIsLoading(true);
         try {
-            const data = await logService.getLogs({
-                search: searchTerm,
-                protocol: protocolFilter,
-                dateRange: dateRange
-            });
-            setLogs(data.logs);
-            setSummary(data.summary);
+            const data = await logService.getLogs();
+            setLogs(data.data);
         } catch (error) {
             console.error('Error loading logs:', error);
         } finally {
@@ -363,58 +253,6 @@ export default function LogsPage() {
                     </button>
                 </div>
             </div>
-
-            {/* Summary Cards */}
-            {summary && (
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <SummaryCard
-                        icon={FileText}
-                        label="Total Logs"
-                        value={summary.totalLogs.toLocaleString()}
-                    />
-                    <SummaryCard
-                        icon={Activity}
-                        label="Total Packets"
-                        value={summary.totalPackets.toLocaleString()}
-                    />
-                    <SummaryCard
-                        icon={Database}
-                        label="Total Data"
-                        value={formatBytes(summary.totalBytes)}
-                    />
-                    <SummaryCard
-                        icon={Clock}
-                        label="Avg Duration"
-                        value={formatDuration(summary.avgFlowDuration)}
-                    />
-                </div>
-            )}
-
-            {/* Protocol Distribution Chart */}
-            {summary && (
-                <div className="p-6 bg-slate-900/50 backdrop-blur border border-cyan-500/20 rounded-xl">
-                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                        <Network className="w-5 h-5 text-[#6abaca]" />
-                        Protocol Distribution
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        {Object.entries(summary.protocolDistribution).map(([protocol, percentage]) => (
-                            <div key={protocol} className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                    <ProtocolBadge protocol={protocol} />
-                                    <span className="text-2xl font-bold text-white">{percentage}%</span>
-                                </div>
-                                <div className="h-3 bg-slate-800 rounded-full overflow-hidden">
-                                    <div
-                                        className="h-full bg-gradient-to-r from-[#6abaca] to-cyan-400 transition-all duration-500"
-                                        style={{ width: `${percentage}%` }}
-                                    ></div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
 
             {/* Search and Filter Bar */}
             <div className="flex flex-col sm:flex-row gap-4">
@@ -492,7 +330,7 @@ export default function LogsPage() {
 
             {/* Pagination Info */}
             <div className="text-center text-sm text-gray-400">
-                Showing {filteredLogs.length} of {summary?.totalLogs.toLocaleString()} logs
+                Showing {filteredLogs.length} of logs
             </div>
         </div>
     );

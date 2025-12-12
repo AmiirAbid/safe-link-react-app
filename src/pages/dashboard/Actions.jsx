@@ -7,7 +7,8 @@ import {
 import {mitigationService} from "@/services/mitigationService.js";
 
 // Utility: Time Ago
-const formatTimeAgo = (date) => {
+const formatTimeAgo = (input) => {
+    const date = new Date(input);
     const seconds = Math.floor((new Date() - date) / 1000);
     if (seconds < 60) return `${seconds}s ago`;
     if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
@@ -80,11 +81,6 @@ const ActionRow = ({ action, expanded, onToggleExpand }) => {
                             <div className="flex items-center gap-2">
                                 <span className="text-gray-400">Target IP:</span>
                                 <span className="text-white font-mono">{action.target_ip}</span>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <span className="text-gray-400">Performed By:</span>
-                                <span className="text-white">{action.performed_by?.name}</span>
                             </div>
                         </div>
                     </div>
