@@ -3,6 +3,7 @@ import {Sidebar} from "@/components/dashboard/Sidebar.jsx";
 import {Header} from "@/components/dashboard/Header.jsx";
 import DashboardPage from "@/pages/dashboard/Dashboard.jsx";
 import AlertsPage from "@/pages/dashboard/Alerts.jsx";
+import LogsPage from "@/pages/dashboard/Logs.jsx";
 
 export default function DashboardLayout() {
     const [currentPage, setCurrentPage] = useState('dashboard');
