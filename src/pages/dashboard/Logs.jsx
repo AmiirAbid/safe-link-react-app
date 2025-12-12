@@ -5,115 +5,11 @@ import {
     Server, Network, Clock, Database, Eye, Calendar
 } from 'lucide-react';
 
-// Log Service API (to be implemented later)
-const logService = {
-    getLogs: async (filters) => {
-        // TODO: Implement actual API call
-        console.log('Fetching logs with filters:', filters);
-
-        // Simulated API call with mock data
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    logs: [
-                        {
-                            _id: '1',
-                            timestamp: new Date(Date.now() - 1 * 60 * 1000),
-                            src_ip: '192.168.1.105',
-                            dst_ip: '10.0.0.50',
-                            protocol: 'TCP',
-                            dst_port: 443,
-                            packets: 1523,
-                            bytes: 2048576,
-                            flags: { syn: 1, ack: 145, fin: 1 },
-                            flow_duration: 3500
-                        },
-                        {
-                            _id: '2',
-                            timestamp: new Date(Date.now() - 3 * 60 * 1000),
-                            src_ip: '172.16.0.88',
-                            dst_ip: '10.0.0.51',
-                            protocol: 'UDP',
-                            dst_port: 53,
-                            packets: 42,
-                            bytes: 8960,
-                            flags: { syn: 0, ack: 0, fin: 0 },
-                            flow_duration: 120
-                        },
-                        {
-                            _id: '3',
-                            timestamp: new Date(Date.now() - 5 * 60 * 1000),
-                            src_ip: '10.0.0.45',
-                            dst_ip: '8.8.8.8',
-                            protocol: 'ICMP',
-                            dst_port: null,
-                            packets: 4,
-                            bytes: 336,
-                            flags: { syn: 0, ack: 0, fin: 0 },
-                            flow_duration: 4000
-                        },
-                        {
-                            _id: '4',
-                            timestamp: new Date(Date.now() - 8 * 60 * 1000),
-                            src_ip: '203.45.67.89',
-                            dst_ip: '10.0.0.52',
-                            protocol: 'TCP',
-                            dst_port: 80,
-                            packets: 2847,
-                            bytes: 4194304,
-                            flags: { syn: 1, ack: 892, fin: 1 },
-                            flow_duration: 12500
-                        },
-                        {
-                            _id: '5',
-                            timestamp: new Date(Date.now() - 12 * 60 * 1000),
-                            src_ip: '198.51.100.42',
-                            dst_ip: '10.0.0.53',
-                            protocol: 'TCP',
-                            dst_port: 22,
-                            packets: 156,
-                            bytes: 45056,
-                            flags: { syn: 1, ack: 78, fin: 1 },
-                            flow_duration: 8200
-                        },
-                        {
-                            _id: '6',
-                            timestamp: new Date(Date.now() - 15 * 60 * 1000),
-                            src_ip: '192.0.2.123',
-                            dst_ip: '10.0.0.54',
-                            protocol: 'UDP',
-                            dst_port: 123,
-                            packets: 8,
-                            bytes: 576,
-                            flags: { syn: 0, ack: 0, fin: 0 },
-                            flow_duration: 50
-                        },
-                    ],
-                    summary: {
-                        totalLogs: 45682,
-                        totalPackets: 2847523,
-                        totalBytes: 5368709120,
-                        avgFlowDuration: 5420,
-                        protocolDistribution: {
-                            TCP: 62,
-                            UDP: 28,
-                            ICMP: 10
-                        }
-                    }
-                });
-            }, 800);
-        });
-    },
-
-    exportLogs: async (filters) => {
-        // TODO: Implement actual API call
-        console.log('Exporting logs with filters:', filters);
-        return Promise.resolve({ success: true });
-    }
-};
+import {logService} from "@/services/logService.js";
 
 // Utility functions
-const formatTimeAgo = (date) => {
+const formatTimeAgo = (input) => {
+    const date = new Date(input);
     const seconds = Math.floor((new Date() - date) / 1000);
 
     if (seconds < 60) return `${seconds}s ago`;
@@ -292,12 +188,8 @@ export default function LogsPage() {
     const loadLogs = async () => {
         setIsLoading(true);
         try {
-            const data = await logService.getLogs({
-                search: searchTerm,
-                protocol: protocolFilter,
-                dateRange: dateRange
-            });
-            setLogs(data.logs);
+            const data = await logService.getLogs();
+            setLogs(data.data);
             setSummary(data.summary);
         } catch (error) {
             console.error('Error loading logs:', error);

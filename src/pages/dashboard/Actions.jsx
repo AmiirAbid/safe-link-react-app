@@ -7,7 +7,8 @@ import {
 import {mitigationService} from "@/services/mitigationService.js";
 
 // Utility: Time Ago
-const formatTimeAgo = (date) => {
+const formatTimeAgo = (input) => {
+    const date = new Date(input);
     const seconds = Math.floor((new Date() - date) / 1000);
     if (seconds < 60) return `${seconds}s ago`;
     if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
