@@ -248,7 +248,6 @@ const SignupForm = ({ onSwitchToLogin }) => {
             const response = await authService.signup(formData.name, formData.email, formData.password);
             setSuccessMessage('Account created successfully! Redirecting...');
             console.log('Signup successful:', response);
-            // TODO: Handle successful signup (redirect, store token, etc.)
         } catch (error) {
             setErrors({ submit: error.message || 'Signup failed. Please try again.' });
         } finally {
@@ -402,7 +401,7 @@ export default function AuthPage() {
                 {/* Additional Info */}
                 <div className="mt-6 text-center text-gray-500 text-xs">
                     <p>Protected by SafeLink Security</p>
-                    <p className="mt-1">© 2024 SafeLink. All rights reserved.</p>
+                    <p className="mt-1">© 2025 SafeLink. All rights reserved.</p>
                 </div>
             </div>
         </div>

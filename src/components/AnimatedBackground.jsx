@@ -1,19 +1,17 @@
 // AnimatedBackground.jsx
 import React from "react";
 
-// Generate particles ONCE
 const PARTICLES = [...Array(70)].map(() => {
-  const size = Math.random() * 2 + 1; // particle size
+  const size = Math.random() * 2 + 1; 
   return {
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
     delay: `${Math.random() * 3}s`,
     duration: `${10 + Math.random() * 10}s`,
     size,
-    driftX: `${Math.random() * 40 - 20}px`, // random horizontal movement
+    driftX: `${Math.random() * 40 - 20}px`, 
     driftY: `${Math.random() * 40 - 20}px`,
-        // opacity: 0.15 + Math.random() * 0.6,
- // random vertical movement
+    
   };
 });
 
