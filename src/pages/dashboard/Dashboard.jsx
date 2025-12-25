@@ -224,7 +224,7 @@ export default function DashboardPage() {
 
                     <div className="h-64 flex flex-col justify-end">
                         <div className="flex items-end justify-between space-x-2 h-full">
-                            {logs.map((day, i) => {
+                            {logs && logs.map((day, i) => {
                                 const maxValue = Math.max(...logs.map(l => l.value));
                                 const heightPercentage = maxValue > 0 ? (day.value / maxValue) * 100 : 0;
 
